@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>CreateUniversesToMultiverses</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<script src="https://unpkg.com/vue@next" defer>
+
+	</script>
+	<script src="libraries/break_infinity.min.js" defer>
+
+	</script>
+	<script src="script.js" defer>
+
+	</script>
+</head>
+
+<body onbeforeunload="save()">
+	<div id="game">
+		<div class="tabBar">
+			<button v-for="(tab, index) in tabs" :class="{notEnough: tab.notEnough}" :disabled="tab.notEnough" @click="switchTabs(index)">{{ tab.name }}</button>
+    </div>
+    <div class="tab">
+      <p>You currently have {{ commafy(universes) }} universe{{ universes == 1 ? "" : "s" }}</p>
+      <p>Auto-generating universes in 5 seconds: {{ commafy(autoGenerateUniverses) }} universe{{ autoGenerateUniverses == 1 ? "" : "s" }}<br>Randomized auto-generating universes in 5 seconds: {{ randomAutoGenerateUniverses.begin < 0 ? "" : commafy(randomAutoGenerateUniverses.begin) + "-" }}{{ commafy(randomAutoGenerateUniverses.end + randomAutoGenerateUniverses.begin) }}<br><br>Total: {{ (autoGenerateUniverses + randomAutoGenerateUniverses.begin) < 0 ? "" : commafy(autoGenerateUniverses + randomAutoGenerateUniverses.begin) + "-" }}{{ commafy(autoGenerateUniverses + randomAutoGenerateUniverses.end + randomAutoGenerateUniverses.begin) }}</p>
+      <button @click="increaseUniverses">Increase universes by {{ commafy(generateUniversesWhenClicked + randomGenerateUniversesWhenClicked.begin) }}-{{ commafy(generateUniversesWhenClicked + randomGenerateUniversesWhenClicked.begin + randomGenerateUniversesWhenClicked.end) }}</button><br><br>
+      <button class="prestige" :class="{notEnough: !prestigePointsGain}" :disabled="!prestigePointsGain">Prestige for {{ commafy(prestigePointsGain) }} multiverses</button>
+      <p v-for="complete in percentComplete">{{ complete.name }}: {{ complete.percent }}%</p>
+    </div>
+    <div class="tab">
+      <p>Upgrades:</p>
+      <button v-for="(upgrade, index) in upgrades" @click="buy(index)" :class="{hidden: upgrade.secret, notEnough: universes < upgrade.cost, bought: upgrade.bought}" :disabled="upgrade.bought || universes < upgrade.cost">{{ upgrade.name }}<br>Cost: {{ commafy(upgrade.cost) }} universes<br>Description (Optional): {{ upgrade.description || "None." }}</button>
+    </div>
+    <div class="tab">
+      <p>Multiverses: {{ prestigePoints }}</p>
+    </div>
+  </div>
+</body>
+
+</html>

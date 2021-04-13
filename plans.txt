@@ -1,0 +1,7 @@
+increase prestige requirements, it is too low as it is not end-game at 5000
+
+make upgrades
+
+add items
+
+make prestige screen to make prestige upgrades, and create prestige currency (maybe dimension shards, or planets) for them. to be contained by prestige level, inspired by cookie clicker prestige
